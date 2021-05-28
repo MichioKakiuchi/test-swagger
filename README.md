@@ -1,3 +1,3 @@
 # test-swagger
 
-[dooc]()
+[doc](https://michiokakiuchi.github.io/test-swagger/dist/index.html)
