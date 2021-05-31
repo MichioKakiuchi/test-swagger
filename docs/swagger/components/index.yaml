@@ -1,0 +1,11 @@
+parameters:
+  $ref: ./parameters.yaml
+
+headers:
+  $ref: ./headers.yaml
+
+schemas:
+  $ref: ./schemas.yaml
+
+security:
+  $ref: ./security.yaml

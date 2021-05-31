@@ -1,0 +1,15 @@
+Users:
+  properties:
+    user_id:
+      type: string
+      example: 1234567
+
+Error:
+  properties:
+    error:
+      type: string
+      example: invalid_request
+    error_description:
+      type: string
+      example: アクセストークンが指定されていません
+      

@@ -1,0 +1,23 @@
+get:
+  summary: ユーザーを取得するAPIです。
+  description: getするよ。パラメータは、同一階層に配置するよ。
+  parameters:
+    - $ref: "#/components/parameters/offsetParam"
+    - $ref: "#/components/parameters/limitParam"
+  responses:
+    '200':
+      description: HTTPステータスコード200と以下の情報を含むJSONオブジェクトを返します。
+      headers:
+        X-Request-ID:
+          $ref: '#/components/headers/X-Request-ID'
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Users"
+
+    '400':
+      description: HTTPステータスコード400と以下の情報を含むJSONオブジェクトを返します。
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"

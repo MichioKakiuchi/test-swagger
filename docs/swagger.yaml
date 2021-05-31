@@ -1,40 +1,76 @@
-swagger: '2.0'
-
+openapi: 3.0.0
 info:
-  version: "1.0.0"
-  title: タイトル！！！キリッ
-
+  version: 1.0.0
+  title: タイトル
+  description: ファイル分割してみた！
+  license:
+    name: ライセンス
 paths:
-  /posts/{id}:
+  /users:
     get:
-      description: |
-        description
-        説明文
-
+      summary: ユーザーを取得するAPIです。
+      description: getするよ。パラメータは、同一階層に配置するよ。
       parameters:
-        -
-          name: id
-          in: path
-          description: Id of array
-          required: true
-          type: number
-          format: double
-
+        - $ref: '#/components/parameters/offsetParam'
+        - $ref: '#/components/parameters/limitParam'
       responses:
-        200:
-          description: Successful responses
-          schema:
-            title: ArrayOfPosts
-            type: array
-            items:
-              title: Posts
-              type: object
-              properties:
-                name:
-                  type: string
-                title:
-                  type: string
-                published:
-                  type: boolean
-                content:
-                  type: string
+        '200':
+          description: HTTPステータスコード200と以下の情報を含むJSONオブジェクトを返します。
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Users'
+        '400':
+          description: HTTPステータスコード400と以下の情報を含むJSONオブジェクトを返します。
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  parameters:
+    offsetParam:
+      name: offset
+      in: query
+      schema:
+        type: integer
+        minimum: 0
+      description: The number of items to skip before returning the results
+    limitParam:
+      in: query
+      name: limit
+      schema:
+        type: integer
+        format: int32
+        minimum: 1
+        maximum: 100
+        default: 20
+      description: The number of items to return
+  headers:
+    X-Request-ID:
+      description: リクエストID
+      schema:
+        type: string
+        format: uuid
+  schemas:
+    Users:
+      properties:
+        user_id:
+          type: string
+          example: 1234567
+    Error:
+      properties:
+        error:
+          type: string
+          example: invalid_request
+        error_description:
+          type: string
+          example: アクセストークンが指定されていません
+  security:
+    Bearer:
+      type: https
+      scheme: bearer
+      description: アクセストークンで認証を行う
+
